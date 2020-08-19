@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+ 	<!-- <bean id="myCoach" 
+ 		class="com.SetterInjection.CricketCoach">
+ 	</bean> -->
+    
+    <!-- Load the properties file: sport.properties -->
+    <context:property-placeholder location="classpath:sport.properties"/>
+    
+    
+    <!-- define the dependency here -->
+    <bean id="myFortuneService" 
+    	  class="com.SetterInjection.HappyFortuneService">
+    </bean>   
+    
+    
+     
+     <!-- Configure the dependency injection (this will call setFortuneService(..) )-->
+    <bean id="myCricketCoach" 
+    	  class="com.SetterInjection.CricketCoach"> 		
+    
+    	<!-- Set up the setter injection  
+    	
+ (ref should be same as bean id ,thats the actual same ref. that we'll use it when we inject it into our CricketCoach )-->
+
+ <!--  Here we inject the dependency(i.e.; taking from FrotuneService class by calling setter method of fortuneService). 
+ So spring will actually call the setFortuneService , and they will pass in that value for that call-->
+    	<property name="fortuneService"  ref="myFortuneService"/> <!-- here ref is used to refer to other objects or dependencies -->
+    	
+    	<!-- inject literal values  (with this we are gonna )
+    	<property name="emailAddress" value="theBestCoach123@gmail.com"></property>
+    	<property name="team" value="KKR"></property> -->
+    	
+    	
+    	<!-- reading information from the properties -->
+    	<property name="emailAddress" value="${foo.email}"></property> <!-- ${property name} -->
+    	<property name="team" value="${foo.team}"></property>
+    </bean>
+
+
+</beans>
+
+
+
+
+

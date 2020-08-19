@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- define the dependency here -->
+    <bean id="myFortuneService" 
+    	  class="com.org.SetterInjection.HappyFortuneService">
+    </bean>	
+
+	<!-- <bean id="myCoach" 
+ 		  class="com.org.SetterInjection.CricketCoach">  by default singleton class is available
+ 		set up constructor injection
+		<constructor-arg ref="myFortuneService"/>
+    </bean>  -->
+    
+<!-- by default scope will be singleton (for singleton scope there will be same ref object (only one instance) will create)-->
+    <!-- <bean id="myCoach" class="com.org.SetterInjection.CricketCoach">
+    	<property name="fortuneService"  ref="myFortuneService" />
+    </bean> -->
+    
+<!--  for scope=prototype, a new object will create each time (new one for each request)-->
+    <bean id="myCoach" class="com.org.SetterInjection.HockeyCoach" scope="prototype">
+    	<property name="fortuneService"  ref="myFortuneService" />
+    </bean>
+    
+</beans>
+
+<!-- Prototype scope = A new object is created each time it is injected/looked up. It will use new SomeClass() each time.
+					here both the object ref variable will be different.
+
+	 Singleton scope = (Default) The same object is returned each time it is injected/looked up.
+ Here it will instantiate one instance of SomeClass and then return it each time. -->
+
+<!-- ________________________________ Difference b/w SDI and CDI ______________________________________________________-->
+
+<!-- We can easily change the value by setter injection. It doesn't create a new bean instance always like constructor. 
+	So setter injection is flexible than constructor injection. -->
+
+<!-- If we use both Constructor Dependency Injection and Setter Dependency Injection , Spring container will override
+ 	the CDI by SDI. It means , if we define both SDI and CDI on the same attributes, then SDI value will be injected to 
+ 	that attribute by spring container. -->
+ 
+<!-- without creating new instance , we can change the bean value using setter method -->
+
+<!--  CDI makes the bean object immutable whereas SDI makes it mutable. -->
+
+<!-- Based on all the above observation, One can think of using SDI most of the times over CDI.
+	 however if we want to ensure complete dependency then it is preferable to use CDI. -->
+	 
+	 
+ 
+ 
